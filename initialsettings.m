@@ -2,9 +2,9 @@
 
 %% Let's start with some minor psychtoolbox settings
 
-Priority(2); % sets resources for psychtoolbox. Set to 2 when collecting data, use 0 for testing
+Priority(0); % sets resources for psychtoolbox. Set to 2 when collecting data, use 0 for testing
 
-% Screen('Preference','SkipSyncTests', 1);  % Skips synchronisation tests. Comment out during actual testing!
+Screen('Preference','SkipSyncTests', 1);  % Skips synchronisation tests. Comment out during actual testing!
 
 study.debug_mode = 0;  % allows you to see the screen while running the program. set to 1 to turn on.
 

@@ -16,10 +16,21 @@
 try
     % Choosing the display with the highest dislay number is
     % a best guess about where you want the stimulus displayed.
+    Priority(0);
+
+study.debug_mode = 1;  % allows you to see the screen while running the program. set to 1 to turn on.
+    
     screens=Screen('Screens');
     screenNumber=max(screens);
     w=Screen('OpenWindow', screenNumber);
     Screen('FillRect', w);
+    
+    black=BlackIndex(w); % black is the intensity value to produce black at current screen depth
+white = WhiteIndex(w); % white is the intensity value to produce white at the current screen depth
+
+
+    
+    
     
     keyIsDown = 0;
     x = 0.017;
@@ -49,7 +60,19 @@ try
     y = y - 0.017;
     
     if keyIsDown
-        sca;
+        Screen('Flip',w);
+        answer = Ask(w,'What was the word?', black, white, 'GetChar',[0 0 1000 200], 'center', 20); 
+        if answer == 'Hello World!'
+            DrawFormattedText(w, 'Correct!', 'center', 'center');
+            Screen('Flip',w);
+            WaitSecs(2);
+            sca;
+        else
+            DrawFormattedText(w, 'Incorrect!', 'center', 'center');
+            Screen('Flip',w);
+            WaitSecs(2);
+            sca;          
+        end   
     end
     
     end
