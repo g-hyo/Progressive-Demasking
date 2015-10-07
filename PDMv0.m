@@ -1,15 +1,31 @@
+try
+
 % This script puts together everything into the future PDM experiment
 
 clear all;
 
-initialsettings % CHECK THAT WE'RE NOT IN DEBUG MODE
+Box % Initialize RT box before opening any screens. Clock drift calculation is done here
 
-Box % Initialize RT box
+initialsettings % CHECK THAT WE'RE NOT IN DEBUG MODE. This sets all the screen settings
+
+Rcollect2 % Collect responses and present stimuli
 
 
-Rcollect % Collect responses
+ListenChar(0); % Re enable typing
 
 
-ListenChar(0);
 
-PsychRTBox('CloseAll');
+PsychRTBox('CloseAll'); % Close RTbox
+
+
+catch ME
+
+sca;
+
+ListenChar(0); % Re enable typing
+
+PsychRTBox('CloseAll'); % Close RTbox.
+
+getReport(ME)
+    
+end
