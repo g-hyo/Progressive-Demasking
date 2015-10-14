@@ -1,3 +1,7 @@
+% This is the if/else flag version of response collection
+% This runs slower (over 10 trials 100ms slower) than the current version
+% where the first iteration is separate
+
 t = [];
 b = [];
 tBeep = [];
@@ -6,6 +10,7 @@ for trial = 1:5
     x = 0.017; % Initial stimulus time
     y = 0.32; % Initial mask time
     tPress = []; % flag to tell code to keep running demasking loop until response made
+    VBLtimestamp = 0; % Reset this before every trial (also acts as a flag in the loop)
     
     PsychRTBox('Clear', handle);
     WaitSecs(.5); 
@@ -15,26 +20,17 @@ for trial = 1:5
     
     WaitSecs(.8); % Leave fixation cross on screen for 0.800 s 
     
-    if isempty(tPress); % First iteration
-    [tPress, evt] = PsychRTBox('BoxSecs', handle, [], 1, 1); % Wait 1 second for a response.         %if then vs separate first iteration
-    DrawFormattedText(wPtr, 'Test', 'center', 'center');    % Draw the text
-    [VBLTimestamp StimulusOnsetTime FlipTimestamp] = Screen('Flip', wPtr); 
-    WaitSecs(x)
-    
-    DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
-    Screen('Flip',wPtr);
-    WaitSecs(y)
-    
-    x = x + 0.017;
-    y = y - 0.017; 
-    end 
-    
-    if isempty(tPress);
+   
     while isempty(tPress);
-    [tPress, evt] = PsychRTBox('BoxSecs', handle, [], 10, 1); % Wait 10 seconds for a response.
+    [tPress, evt] = PsychRTBox('BoxSecs', handle, [], 10, 1); % Wait 5 seconds for a response.         %if then vs separate first iteration
     DrawFormattedText(wPtr, 'Test', 'center', 'center');    % Draw the text
-    Screen('Flip', wPtr); 
-    WaitSecs(x)
+    
+        if VBLTimestamp == 0 % Collect timestamp on only the first iteration 
+            [VBLTimestamp StimulusOnsetTime FlipTimestamp] = Screen('Flip', wPtr); 
+        else 
+            Screen('Flip',wPtr);   
+        end
+    WaitSecs(x) %keep this on screen
     
     DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
     Screen('Flip',wPtr);
@@ -42,7 +38,8 @@ for trial = 1:5
     
     x = x + 0.017;
     y = y - 0.017;
-    end
+    
+    
     end 
    
         t(end+1) = tPress; 

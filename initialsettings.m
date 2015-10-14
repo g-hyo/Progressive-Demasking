@@ -27,3 +27,12 @@ white = WhiteIndex(wPtr); % white is the intensity value to produce white at the
 centerX = rect(3)/2; % defines the centre X coordinate of screen from rect
 centerY = rect(4)/2; % defines the centre Y coordinate of screen from rect
 
+
+%% Now let's load the stimuli
+
+stim = importdata('stimuli.txt'); % Load stimuli
+index = randperm(length(stim)); % Create random index for stimuli
+rstim = stim(index); % Index stimuli according to random order we just generated
+
+ 
+
