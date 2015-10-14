@@ -50,7 +50,12 @@ for trial = 1:5
     if ~isempty(tPress);
      Screen('Flip',wPtr);
         answer = Ask(wPtr,'What was the word?', black, white, 'GetChar','center', 'center', 20); 
-            if answer == char(rstim{trial});
+            if length(answer) ~= length(char(rstim{trial}));
+                DrawFormattedText(wPtr, 'Incorrect!', 'center', 'center');
+                Screen('Flip',wPtr);
+                WaitSecs(2);
+                correct = 0;            
+            elseif answer == char(rstim{trial});
                 DrawFormattedText(wPtr, 'Correct!', 'center', 'center');
                 Screen('Flip',wPtr);
                 WaitSecs(2);
