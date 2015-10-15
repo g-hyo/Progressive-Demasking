@@ -19,10 +19,25 @@ end % debug window on
 
 %% Great, now let's go to the screen settings
 
-[wPtr, rect] = Screen('OpenWindow',0, [200 200 200]); % wPtr is screen being used. rect gives a vector of screen size
 
+% Get the screen numbers
+screens = Screen('Screens');
+% Draw to the external screen if avaliable
+wPtr = max(screens);
+
+
+% Define black and white
 black=BlackIndex(wPtr); % black is the intensity value to produce black at current screen depth
 white = WhiteIndex(wPtr); % white is the intensity value to produce white at the current screen depth
+grey = white/2;
+
+% Open an on screen window
+[wPtr, rect] = PsychImaging('OpenWindow', 0, grey); % wPtr is screen being used. rect gives a vector of screen size
+[screenXpixels, screenYpixels] = Screen('WindowSize', wPtr);
+
+
+
+
 
 centerX = rect(3)/2; % defines the centre X coordinate of screen from rect
 centerY = rect(4)/2; % defines the centre Y coordinate of screen from rect
