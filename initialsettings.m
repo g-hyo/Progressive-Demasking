@@ -11,6 +11,7 @@ study.debug_mode = 0;  % allows you to see the screen while running the program.
 ListenChar(2); % supress keyboard input
 HideCursor;
 
+PsychDefaultSetup(2); % this is needed for draw the checkers!
 
 if study.debug_mode;
     PsychDebugWindowConfiguration(0.5); % will set the transparent screen so you can debug 

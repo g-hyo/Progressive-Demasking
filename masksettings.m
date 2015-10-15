@@ -1,7 +1,7 @@
 %% This code will create the checkboard mask
 
 % Determine the size of the checkerboard squares
-dim = 50;
+dim = 10;
 baseRect = [0 0 dim dim];
 
 
@@ -35,39 +35,9 @@ bwColors = repmat(bwColors, 3, 1); % multiply by three to transform into an RGB 
 
 
 % Make rectangle coordinates so that PTB knows where to put everything
-allRects = nan(4,4); %pre-defined 4x3 matrix
+allRects = nan(4,3); %pre-defined 4x3 matrix
 
 for i = 1:numSquares % each column will now have checkboard square rec coordinates
     allRects(:, i) = CenterRectOnPointd(baseRect,... % center boxes??
         xPosBox(i), yPosBox(i));
 end
-
-% Note that all rects is a 4xNumSquares matrix. Each column are rectangle
-% coordinates
-
-tic
-% Draw the rect to the screen
-Screen('FillRect', wPtr, bwColors, allRects);
-time = toc
-
-% Flip to the screen
-Screen('Flip', wPtr);
-
-% Wait for a key press
-KbStrokeWait;
-
-%%
- DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
-
-% Flip to the screen
-Screen('Flip', wPtr);
-
-% Wait for a key press
-KbStrokeWait;
-
-
-% Clear the screen
-sca;
-
-ListenChar(0);
-ShowCursor;

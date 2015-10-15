@@ -3,10 +3,14 @@ b = [];
 tBeep = [];
 accu =[];
 
-for trial = 1:5
+
+for trial = 1:20
     x = 0.017; % Initial stimulus time
     y = 0.32; % Initial mask time
     tPress = []; % flag to tell code to keep running demasking loop until response made
+    
+    masksettings % Set the checkerboardmask settings - This will eventually change depending on word length
+
     
     PsychRTBox('Clear', handle);
     WaitSecs(.5); 
@@ -23,7 +27,8 @@ for trial = 1:5
     [VBLTimestamp StimulusOnsetTime FlipTimestamp] = Screen('Flip', wPtr); 
     WaitSecs(x)
     
-    DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
+    %DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
+    Screen('FillRect', wPtr, bwColors, allRects);
     Screen('Flip',wPtr);
     WaitSecs(y)
     
@@ -38,7 +43,8 @@ for trial = 1:5
     Screen('Flip', wPtr); 
     WaitSecs(x)
     
-    DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
+    %DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
+    Screen('FillRect', wPtr, bwColors, allRects);
     Screen('Flip',wPtr);
     WaitSecs(y)
     
@@ -71,7 +77,7 @@ for trial = 1:5
         b(end+1) = evt; 
         tBeep(end+1) = VBLTimestamp; 
         accu(end+1) = correct;
-        
+
 
         Screen('Flip', wPtr); 
      

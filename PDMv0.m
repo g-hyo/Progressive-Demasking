@@ -8,6 +8,7 @@ Box % Initialize RT box before opening any screens. Clock drift calculation is d
 
 initialsettings % CHECK THAT WE'RE NOT IN DEBUG MODE. This sets all the screen settings
 
+
 Rcollect % Collect responses and present stimuli
 
 
