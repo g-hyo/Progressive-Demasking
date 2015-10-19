@@ -20,12 +20,14 @@ for trial = 1:20
     
     WaitSecs(.8); % Leave fixation cross on screen for 0.800 s 
            
-    if isempty(tPress); % First iteration
+    %if isempty(tPress); % First iteration
     %[tPress, evt] = PsychRTBox('BoxSecs', handle, [], .1, 1);  %separate
     %first iteration. Probably too fast for a response anyway.
     DrawFormattedText(wPtr, char(rstim{trial}), 'center', 'center');    % Draw the text
     [VBLTimestamp StimulusOnsetTime FlipTimestamp] = Screen('Flip', wPtr); 
     WaitSecs(x)
+    
+ 
     
     %DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
     Screen('FillRect', wPtr, bwColors, allRects);
@@ -34,9 +36,12 @@ for trial = 1:20
     
     x = x + 0.017;
     y = y - 0.017; 
-    end 
     
-    if isempty(tPress);
+    
+% do not collect response on first trial, as .017msecs is too quick to respond!
+    %end 
+    
+
     while isempty(tPress);
     [tPress, evt] = PsychRTBox('BoxSecs', handle, [], 5, 1); % Wait 5 seconds for a response.
     DrawFormattedText(wPtr, char(rstim{trial}), 'center', 'center');    % Draw the text
@@ -51,11 +56,9 @@ for trial = 1:20
     x = x + 0.017;
     y = y - 0.017;
     end
-    end 
-   
-    if ~isempty(tPress);
+
      Screen('Flip',wPtr);
-        answer = Ask(wPtr,'What was the word?', black, white, 'GetChar','center', 'center', 20); 
+     answer = Ask(wPtr,'What was the word?', black, white, 'GetChar','center', 'center', 20); 
             if length(answer) ~= length(char(rstim{trial}));
                 DrawFormattedText(wPtr, 'Incorrect!', 'center', 'center');
                 Screen('Flip',wPtr);
@@ -72,7 +75,7 @@ for trial = 1:20
                 WaitSecs(2);
                 correct = 0;
             end
-    end
+
         t(end+1) = tPress; 
         b(end+1) = evt; 
         tBeep(end+1) = VBLTimestamp; 
