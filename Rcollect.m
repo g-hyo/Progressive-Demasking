@@ -4,7 +4,7 @@ tBeep = [];
 accu =[];
 
 
-for trial = 1:20
+for trial = 1:5
     x = 0.017; % Initial stimulus time
     y = 0.32; % Initial mask time
     tPress = []; % flag to tell code to keep running demasking loop until response made
@@ -30,7 +30,8 @@ for trial = 1:20
  
     
     %DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
-    Screen('FillRect', wPtr, bwColors, allRects);
+    %Screen('FillRect', wPtr, bwColors, allRects);
+    Screen('DrawTexture', wPtr, tex, [],[], [], 0);
     Screen('Flip',wPtr);
     WaitSecs(y)
     
@@ -49,7 +50,8 @@ for trial = 1:20
     WaitSecs(x)
     
     %DrawFormattedText(wPtr, '####', 'center', 'center');    % Draw the mask
-    Screen('FillRect', wPtr, bwColors, allRects);
+    %Screen('FillRect', wPtr, bwColors, allRects);
+    Screen('DrawTexture', wPtr, tex, [],[], [], 0);
     Screen('Flip',wPtr);
     WaitSecs(y)
     

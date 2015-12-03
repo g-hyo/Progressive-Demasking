@@ -27,13 +27,16 @@ screens = Screen('Screens');
 wPtr = max(screens);
 
 
+% This may be needed to draw the stimuli
+AssertOpenGL;
+
 % Define black and white
 black=BlackIndex(wPtr); % black is the intensity value to produce black at current screen depth
 white = WhiteIndex(wPtr); % white is the intensity value to produce white at the current screen depth
 grey = white/2;
 
 % Open an on screen window
-[wPtr, rect] = PsychImaging('OpenWindow', 0, grey); % wPtr is screen being used. rect gives a vector of screen size
+[wPtr, rect] = PsychImaging('OpenWindow',0); % wPtr is screen being used. rect gives a vector of screen size
 [screenXpixels, screenYpixels] = Screen('WindowSize', wPtr);
 
 
